@@ -43,22 +43,41 @@ def cari_lagu(data, keyword):
     waktu_rekursif = end_time - start_time
 
     # Tampilkan hasil
-    print("\n=== Hasil Pencarian ===")
+    print("\n================ Hasil Pencarian Lagu =================")
+    print(f"{'Metode':<15}{'Status':<25}{'Waktu (detik)':<15}")
+    print("-" * 55)
+    
     if hasil_iteratif:
-        print(f"Iteratif: Lagu ditemukan: {hasil_iteratif}, Waktu: {waktu_iteratif:.6f} detik")
+        print(f"{'Iteratif':<15}{'Lagu ditemukan':<25}{waktu_iteratif:.6f}")
+        print(f"{'':<15}{'ID':<10}{hasil_iteratif['id']}")
+        print(f"{'':<15}{'Judul':<10}{hasil_iteratif['judul_lagu']}")
+        print(f"{'':<15}{'Artis':<10}{hasil_iteratif['artis']}")
+        print(f"{'':<15}{'Genre':<10}{hasil_iteratif['genre']}")
+        print("")
     else:
-        print(f"Iteratif: Lagu tidak ditemukan, Waktu: {waktu_iteratif:.6f} detik")
+        print(f"{'Iteratif':<15}{'Lagu tidak ditemukan':<25}{waktu_iteratif:.6f}")
 
     if hasil_rekursif:
-        print(f"Rekursif: Lagu ditemukan: {hasil_rekursif}, Waktu: {waktu_rekursif:.6f} detik")
+        print(f"{'Rekursif':<15}{'Lagu ditemukan':<25}{waktu_rekursif:.6f}")
+        print(f"{'':<15}{'ID':<10}{hasil_rekursif['id']}")
+        print(f"{'':<15}{'Judul':<10}{hasil_rekursif['judul_lagu']}")
+        print(f"{'':<15}{'Artis':<10}{hasil_rekursif['artis']}")
+        print(f"{'':<15}{'Genre':<10}{hasil_rekursif['genre']}")
     else:
-        print(f"Rekursif: Lagu tidak ditemukan, Waktu: {waktu_rekursif:.6f} detik")
+        print(f"{'Rekursif':<15}{'Lagu tidak ditemukan':<25}{waktu_rekursif:.6f}")
 
+    print("-" * 55)
     return waktu_iteratif, waktu_rekursif
 
 # Fungsi utama untuk menjalankan program
 def main():
-    print("Selamat datang di aplikasi pencarian lagu!")
+    print("")
+    print("-=-=-=-=-= Selamat datang di aplikasi pencarian lagu! =-=-=-=-=-")
+    print("Aplikasi ini dirancang untuk analisis studi kasus laporan kami yang berjudul")
+    print("'Analisis Kompleksitas Algoritma Sequential Search: Studi Kasus Pencarian Lagu pada Spotify dengan Pendekatan Iteratif dan Rekursif'")
+    print("Aplikasi ini dirancang oleh: ")
+    print("1. Jordan Angkawijaya (2311102139)")
+    print("2. Mahija Danadyaksa Sadtomo (2311102157)")
 
     iteratif_times = []
     rekursif_times = []
@@ -66,12 +85,14 @@ def main():
 
     while True:
         try:
+            print("")
             size = int(input("Masukkan ukuran dataset (ketik 0 untuk keluar): "))
             if size == 0:
-                print("Program berhenti. Terima kasih telah menggunakan aplikasi ini!")
+                print("Program berhenti. Thank you for using!!")
+                print("")
                 break
             if size < 0:
-                print("Ukuran dataset tidak boleh negatif. Silakan coba lagi.")
+                print("Datasets can't be negative?? Input a positive number pls.")
                 continue
 
             dataset_sizes.append(size)
@@ -80,18 +101,24 @@ def main():
             iteratif_times.append(waktu_iteratif)
             rekursif_times.append(waktu_rekursif)
         except ValueError:
-            print("Input tidak valid. Harap masukkan angka.")
+            print("Inputs should be a number..")
 
     # Membuat grafik jika ada data yang diinputkan
     if dataset_sizes:
+        plt.figure(figsize=(10, 6))
+        
         plt.plot(dataset_sizes, iteratif_times, label='Iteratif', marker='o', color='blue', linestyle='-', linewidth=2)
         plt.plot(dataset_sizes, rekursif_times, label='Rekursif', marker='x', color='green', linestyle='--', linewidth=2)
 
-        plt.xlabel('Ukuran Dataset')
-        plt.ylabel('Waktu (detik)')
-        plt.title('Perbandingan Waktu Pencarian Iteratif vs Rekursif')
+        plt.xlabel('Ukuran Dataset', fontsize=12)
+        plt.ylabel('Waktu (detik)', fontsize=12)
+        plt.title('Perbandingan Waktu Pencarian Iteratif vs Rekursif', fontsize=14, fontweight='bold')
+        plt.suptitle('Dirancang oleh Jordan Angkawijaya & Mahija Danadyaksa Sadtomo', fontsize=10, style='italic')
         plt.legend()
-        plt.grid(True)
+        plt.grid(True, linestyle='--', alpha=0.7)
+        plt.xticks(fontsize=10)
+        plt.yticks(fontsize=10)
+        plt.tight_layout(rect=[0, 0, 1, 0.95])
         plt.show()
 
 if __name__ == "__main__":
